@@ -40,6 +40,7 @@ public class ClienteServiceImpl implements ClienteService{
 	@Transactional
 	public void delete(Long id) {
 		clienteDao.deleteById(id);
+		System.out.println("Este metodo eliminará un cliente por id");
 	}
 
 }
