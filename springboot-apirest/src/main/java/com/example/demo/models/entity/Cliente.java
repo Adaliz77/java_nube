@@ -19,8 +19,12 @@ public class Cliente implements Serializable{
 	@Id //PARA QUE LA BD LO RECONOZCA COMO IDENTIFICADOR ID
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //PARA GENERAR EL AUTOINCREMENT
 	private long id;
+	
+	@Column(nullable = false) // es obligatorio
 	private String nombre;
 	private String apellido;
+	
+	@Column(nullable = false, unique = true) // es obligatorio y único
 	private String email;
 	private int telefono;
 	
@@ -28,12 +32,15 @@ public class Cliente implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date createdAt;
 	
+	private String imagen;
+	
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -66,7 +73,17 @@ public class Cliente implements Serializable{
 	}
 	
 	
-	
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+
+
+
+
 	/**
 	 * 
 	 */
