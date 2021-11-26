@@ -5,12 +5,18 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity//representa una tabla en una base de datos
 @Table(name = "clientes")
@@ -31,6 +37,13 @@ public class Cliente implements Serializable{
 	@Column(name = "created_at")
 	@Temporal(TemporalType.DATE)
 	private Date createdAt;
+	
+	//many donde estamos, la palabra de la izquierda hace referencia donde estamos
+	@NotNull(message="no puede estar vacío")
+	@ManyToOne(fetch=FetchType.LAZY)//hace una subconsulta atraves de un metodo, carga perezosa
+	@JoinColumn(name="region_id")//para relacionar es indispensable
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})// ponemos porque tenemos una carga perezosa
+	private Region region;
 	
 	private String imagen;
 	
@@ -79,6 +92,16 @@ public class Cliente implements Serializable{
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+	
+	
+	public Region getRegion() {
+		return region;
+	}
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+
 
 
 

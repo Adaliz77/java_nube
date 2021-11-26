@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.models.entity.Cliente;
+import com.example.demo.models.entity.Region;
 import com.example.demo.models.service.ClienteService;
 
 @RestController
@@ -134,8 +135,7 @@ public class ClienteRestController {
 //		}
 			
 			clienteActual.setCreatedAt(cliente.getCreatedAt());
-			
-
+			clienteActual.setRegion(cliente.getRegion());
 			
 			clienteUpdated = clienteService.save(clienteActual);
 		} catch (DataAccessException e) {
@@ -233,6 +233,11 @@ public class ClienteRestController {
 		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\""+recurso.getFilename()+"\"");
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 		
+	}
+	
+	@GetMapping("clientes/regiones")
+	public List<Region>listarRegiones(){
+		return clienteService.findAllRegions();
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.models.dao.ClienteDao;
 import com.example.demo.models.entity.Cliente;
+import com.example.demo.models.entity.Region;
 
 @Service
 public class ClienteServiceImpl implements ClienteService{
@@ -37,10 +38,17 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 	
 	@Override
-	@Transactional
+	@Transactional//esta anotacion es requerida
 	public void delete(Long id) {
 		clienteDao.deleteById(id);
 		System.out.println("Este metodo eliminará un cliente por id");
+	}
+
+	@Override
+	@Transactional(readOnly=true)//si es de tipo get readOnly
+	public List<Region> findAllRegions() {
+		
+		return clienteDao.findAllRegions();
 	}
 
 }
